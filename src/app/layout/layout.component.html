@@ -1,7 +1,48 @@
-<table>
-    <td>
+<div>
+  <div class="puan-durumu">
+    <p-table [columns]="cols" [value]="teams">
+      <ng-template pTemplate="header" let-columns>
         <tr>
-        sa
+          <th>Sıra</th>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
         </tr>
-    </td>
-</table>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-columns="columns"
+        let-rowIndex="rowIndex"
+      >
+        <tr>
+          <td>{{ rowIndex + 1 }}.</td>
+          <td *ngFor="let col of columns">
+            {{ rowData[col.field] }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="haftanin-maclari">
+    <p-table>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{week/2 +1}}. Haftanın Maçları</th>
+        </tr>
+        <tr>
+          {{
+            matchesOfWeek[week]
+          }}
+        </tr>
+        <tr>
+          {{
+            matchesOfWeek[week + 1]
+          }}
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-button label="Back" (onClick)="funcBack()"></p-button>
+    <p-button label="Next" (onClick)="funcNext()"></p-button>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+{
+    "data": [
+        {
+            "takim": "Galatasaray",
+            "oynananMac": 0,
+            "beraberlik": 0,
+            "maglubiyet": 0,
+            "atilanGol": 0,
+            "yenilenGol": 0,
+            "avaraj": 0,
+            "puan": 0
+        },
+        {
+            "takim": "Beşiktaş",
+            "oynananMac": 0,
+            "beraberlik": 0,
+            "maglubiyet": 0,
+            "atilanGol": 0,
+            "yenilenGol": 0,
+            "avaraj": 0,
+            "puan": 0
+        },
+        {
+            "takim": "Fenerbahçe",
+            "oynananMac": 0,
+            "beraberlik": 0,
+            "maglubiyet": 0,
+            "atilanGol": 0,
+            "yenilenGol": 0,
+            "avaraj": 0,
+            "puan": 0
+        },
+        {
+            "takim": "Trabzonspor",
+            "oynananMac": 0,
+            "beraberlik": 0,
+            "maglubiyet": 0,
+            "atilanGol": 0,
+            "yenilenGol": 0,
+            "avaraj": 0,
+            "puan": 0
+        }
+    ]
+}

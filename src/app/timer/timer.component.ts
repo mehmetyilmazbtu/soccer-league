@@ -12,19 +12,26 @@ export class TimerComponent implements OnInit {
   ngOnInit(): void {
     let n = 1;
     let source = of(n);
-    let subscription=timer(100, 50)
+    let subscription=timer(100, 25)
       .pipe(concatMap(() => source))
       .subscribe(() => {
         if (n >= 91) {
-          console.log("maç bitti")
+          this.print("Maç Sonu")
           subscription.unsubscribe()
         }
         else{
-          console.log(n);
+          this.print(n);
         }
         n++;
       });
     
   }  
+  print(val) {
+    let el = document.createElement("p");
+    el.innerText = val;
+    document.body.appendChild(el);
+  
+  
+  }
   
 }
