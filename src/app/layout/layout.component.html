@@ -1,10 +1,19 @@
 <div>
   <div class="puan-durumu">
-    <p-table [columns]="cols" [value]="teams">
+    <p-table
+      [columns]="cols"
+      [value]="teams"
+      sortMode="multiple"
+      [multiSortMeta]="[
+        { field: 'puan', order: -1 },
+        { field: 'avaraj', order: -1 },
+        { field: 'takim', order: 1 }
+      ]"
+    >
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th>Sıra</th>
-          <th *ngFor="let col of columns">
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
             {{ col.header }}
           </th>
         </tr>
@@ -28,17 +37,13 @@
     <p-table>
       <ng-template pTemplate="header">
         <tr>
-          <th>{{week/2 +1}}. Haftanın Maçları</th>
+          <th>{{ week / 2 + 1 }}. Haftanın Maçları</th>
         </tr>
         <tr>
-          {{
-            matchesOfWeek[week]
-          }}
+          {{ matchesOfWeek[week] }}
         </tr>
         <tr>
-          {{
-            matchesOfWeek[week + 1]
-          }}
+          {{ matchesOfWeek[week + 1] }}
         </tr>
       </ng-template>
     </p-table>

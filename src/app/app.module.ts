@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TimerComponent } from './timer/timer.component';
 import { LayoutComponent } from './layout/layout.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LayoutComponent } from './layout/layout.component';
     AppRoutingModule,
     TableModule,
     HttpClientModule,
-    ButtonModule
+    ButtonModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
