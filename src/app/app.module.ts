@@ -14,7 +14,7 @@ import { StoreModule } from '@ngrx/store';
   declarations: [
     AppComponent,
     TimerComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,

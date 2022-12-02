@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Teams } from '../interfaces/teams';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeamsService {
-
-  constructor(
-    private http : HttpClient
-  ) { }
-
-  getTeams() {
-    return this.http.get<any>('assets/teams.json')
-    .toPromise()
-    .then(res => <Teams[]>res.data)
-    .then(data => { return data; });
-}
+  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:3000/data';
+  getTeams(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
+  updateData(data: any, id: number): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, data);
+  }
 }

@@ -2,7 +2,7 @@
   <div class="puan-durumu">
     <p-table
       [columns]="cols"
-      [value]="teams"
+      [value]="teams$ | async"
       sortMode="multiple"
       [multiSortMeta]="[
         { field: 'puan', order: -1 },
