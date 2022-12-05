@@ -21,22 +21,32 @@ export class LayoutComponent implements OnInit {
   ];
   matchesOfWeek = [];
   week: number = 0;
-
+  teams: any;
   constructor(
     private teamsService: TeamsService,
     private algorithmsService: AlgorithmsService
   ) {}
   ngOnInit(): void {
     this.teams$.subscribe((res) => {
+      this.teams = res;
       this.matchesOfWeek = this.algorithmsService.fiksturAlgoritmasi(res);
+      this.teams = this.algorithmsService.playMatches(
+        this.week,
+        this.teams,
+        this.matchesOfWeek
+      );
     });
   }
   funcNext() {
     if (this.week >= 10) {
       return;
     }
-    this.editTable(0, 2);
     this.week += 2;
+    this.teams = this.algorithmsService.playMatches(
+      this.week,
+      this.teams,
+      this.matchesOfWeek
+    );
   }
   funcBack() {
     if (this.week <= 0) {
@@ -45,39 +55,18 @@ export class LayoutComponent implements OnInit {
     this.week -= 2;
   }
 
-  // funcNext() {
-  //   //need state management
-  //   if (this.week >= 10) {
-  //     return;
-  //   }
-  //   this.week = this.week + 2;
-  //   console.log(this.week);
-  //   let firstMatch = this.matchesOfWeek[this.week + 0].split(' - ');
-  //   let secMatch = this.matchesOfWeek[this.week + 1].split(' - ');
-  //   this.editTable(
-  //     this.teams.findIndex((arr) => arr.takim === firstMatch[0]),
-  //     this.teams.findIndex((arr) => arr.takim === firstMatch[1])
-  //   );
-  //   this.editTable(
-  //     this.teams.findIndex((arr) => arr.takim === secMatch[0]),
-  //     this.teams.findIndex((arr) => arr.takim === secMatch[1])
-  //   );
-  //   this.teams = [...this.teams];
-  //   console.table(this.teams);
-  // }
   editTable(evSahibi, deplasman) {
-    let body={
+    let body = {
       id: 0,
-      takim: "Galatasaray",
-      oynananMac: 3,
-      beraberlik: 2,
-      maglubiyet: 1,
-      atilanGol: 11,
-      yenilenGol: 4,
-      avaraj: 5,
-      puan: 21
-    }
-    this.teamsService.updateData(body,0).subscribe()
-    
+      takim: 'Galatasaray',
+      oynananMac: 0,
+      beraberlik: 0,
+      maglubiyet: 0,
+      atilanGol: 0,
+      yenilenGol: 0,
+      avaraj: 0,
+      puan: 0,
+    };
+    this.teamsService.updateData(body, 0).subscribe();
   }
 }

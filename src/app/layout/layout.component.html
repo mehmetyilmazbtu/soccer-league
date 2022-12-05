@@ -2,7 +2,7 @@
   <div class="puan-durumu">
     <p-table
       [columns]="cols"
-      [value]="teams$ | async"
+      [value]="teams"
       sortMode="multiple"
       [multiSortMeta]="[
         { field: 'puan', order: -1 },
@@ -51,3 +51,14 @@
     <p-button label="Next" (onClick)="funcNext()"></p-button>
   </div>
 </div>
+
+
+<!-- <div *ngIf="table$ | async as p">
+  <h2>{{p.takim}}</h2>
+  <h4>{{p.oynananMac}}</h4>
+
+  <button (click)="nextWeek()">next</button>
+  <button (click)="resetTable2()">reset</button>
+
+
+</div> -->

@@ -22,7 +22,6 @@ import { StoreModule } from '@ngrx/store';
     TableModule,
     HttpClientModule,
     ButtonModule,
-    StoreModule.forRoot({}, {})
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
