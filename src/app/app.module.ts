@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { TimerComponent } from './timer/timer.component';
 import { LayoutComponent } from './layout/layout.component';
 import { StoreModule } from '@ngrx/store';
+import { tableReducer } from './layout/state/table.reducer';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
     TableModule,
     HttpClientModule,
     ButtonModule,
+    StoreModule.forRoot({tables: tableReducer})
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

@@ -11,7 +11,7 @@ export class TeamsService {
   getTeams(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
-  updateData(data: any, id: number): Observable<any> {
+  updateData(data: any, id:number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}`, data);
   }
 }

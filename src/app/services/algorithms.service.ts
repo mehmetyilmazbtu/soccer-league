@@ -36,8 +36,8 @@ export class AlgorithmsService {
   playMatches(week,teams,matchesOfWeek) {
     for (let i = 0; i < 2; i++) {
       const res = matchesOfWeek[week+i].split(' - ');
-      const homeTeam = teams.find((element) => element.takim === res[0]);
-      const awayTeam = teams.find((element) => element.takim === res[1]);
+      let homeTeam = teams.find((element) => element.takim === res[0]);
+      let awayTeam = teams.find((element) => element.takim === res[1]);
       const goalHome = Math.floor(Math.random() * (4 - 0 + 1) + 0);
       const goalAway = Math.floor(Math.random() * (4 - 0 + 1) + 0);
 
