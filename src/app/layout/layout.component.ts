@@ -53,51 +53,58 @@ export class LayoutComponent implements OnInit {
       this.onAddTable();
     });
     this.tables$.subscribe((res) => (this.tablesLength = res.length));
+    console.log(this.week)
   }
   funcNext() {
     if (this.week >= 10) {
       return;
     }
     this.week += 2;
+
+    //if in state
     if (this.tablesLength > this.week / 2) {
       this.tables$.subscribe((res) => {
         for (let i = 0; i < this.teams.length; i++) {
           let arr = res[this.week / 2][i];
           this.teamsService.updateData(arr, i).subscribe();
-          console.table(arr);
         }
       });
-      
-      return this.teams$.subscribe((res) => {
+      this.teams$.subscribe((res) => (this.teams = res));
+
+      this.backCounter--;
+      return;
+    } else {
+      console.table(this.teams);
+      console.log('week: ', this.week);
+      this.teams = this.algorithmsService.playMatches(
+        this.week,
+        this.teams,
+        this.matchesOfWeek
+      );
+      console.table(this.teams);
+      console.log('week: ', this.week);
+      for (let i = 0; i < this.teams.length; i++) {
+        let data = this.teams.find((x) => x.id === i);
+        this.teamsService.updateData(data, i).subscribe();
+      }
+      this.onAddTable();
+      this.teams$.subscribe((res) => {
         this.teams = res;
-        console.log(res);
+        console.log(this.teams)
       });
     }
-    console.log('geçiş');
-
-    this.teams = this.algorithmsService.playMatches(
-      this.week,
-      this.teams,
-      this.matchesOfWeek
-    );
-    for (let i = 0; i < this.teams.length; i++) {
-      let data = this.teams.find((x) => x.id === i);
-      this.teamsService.updateData(data, i).subscribe();
-    }
-    this.onAddTable();
-    console.table(this.teams);
   }
   funcBack() {
     if (this.week <= 0) {
       return;
     }
+    console.log("week-: ",this.week)
     this.tables$.subscribe((res) => {
       let arrLength = res.length;
       if (res[arrLength - 2 - this.backCounter]) {
         for (let i = 0; i < this.teams.length; i++) {
           let arr = res[arrLength - 2 - this.backCounter][i];
           this.teamsService.updateData(arr, i).subscribe();
-          console.table(arr);
         }
         this.teams$.subscribe((res) => (this.teams = res));
       }
