@@ -5,13 +5,15 @@ import { Root } from '../models/table.model';
 import { AlgorithmsService } from '../services/algorithms.service';
 import { TeamsService } from '../services/teams.service';
 import { AppState } from '../store/app.state';
-import { addTable } from './state/table.actions';
+import { addTableSuccess } from './state/table.actions';
 import { getTables } from './state/table.selector';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.sass'],
+  styleUrls: ['./layout.component.sass',
+  '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+],
 })
 export class LayoutComponent implements OnInit {
   teams$: any = this.teamsService.getTeams();
@@ -46,6 +48,7 @@ export class LayoutComponent implements OnInit {
         this.teams,
         this.matchesOfWeek
       );
+
       for (let i = 0; i < this.teams.length; i++) {
         let data = this.teams.find((x) => x.id === i);
         this.teamsService.updateData(data, i).subscribe();
@@ -53,44 +56,37 @@ export class LayoutComponent implements OnInit {
       this.onAddTable();
     });
     this.tables$.subscribe((res) => (this.tablesLength = res.length));
-    console.log(this.week)
+    // console.log(this.week)
   }
   funcNext() {
-    if (this.week >= 10) {
+    if (this.week >= 5) {
       return;
     }
-    this.week += 2;
-
+    this.week++;
     //if in state
-    if (this.tablesLength > this.week / 2) {
+    if (this.tablesLength>=(this.week+1)) {
       this.tables$.subscribe((res) => {
         for (let i = 0; i < this.teams.length; i++) {
-          let arr = res[this.week / 2][i];
+          let arr = res[this.week][i];
           this.teamsService.updateData(arr, i).subscribe();
         }
       });
       this.teams$.subscribe((res) => (this.teams = res));
-
       this.backCounter--;
       return;
     } else {
-      console.table(this.teams);
-      console.log('week: ', this.week);
       this.teams = this.algorithmsService.playMatches(
         this.week,
         this.teams,
         this.matchesOfWeek
       );
-      console.table(this.teams);
-      console.log('week: ', this.week);
       for (let i = 0; i < this.teams.length; i++) {
         let data = this.teams.find((x) => x.id === i);
         this.teamsService.updateData(data, i).subscribe();
       }
-      this.onAddTable();
       this.teams$.subscribe((res) => {
         this.teams = res;
-        console.log(this.teams)
+        this.onAddTable();
       });
     }
   }
@@ -98,7 +94,6 @@ export class LayoutComponent implements OnInit {
     if (this.week <= 0) {
       return;
     }
-    console.log("week-: ",this.week)
     this.tables$.subscribe((res) => {
       let arrLength = res.length;
       if (res[arrLength - 2 - this.backCounter]) {
@@ -109,14 +104,14 @@ export class LayoutComponent implements OnInit {
         this.teams$.subscribe((res) => (this.teams = res));
       }
 
-      this.week -= 2;
+      this.week --;
       this.backCounter++;
     });
   }
 
   funcReset() {
     for (let i = 0; i < this.teams.length; i++) {
-      let data = this.teams.find((x) => x.id === i);
+      var data = this.teams.find((x) => x.id === i);
       data.atilanGol = 0;
       data.avaraj = 0;
       data.beraberlik = 0;
@@ -130,9 +125,6 @@ export class LayoutComponent implements OnInit {
   }
   onAddTable() {
     let table: Root;
-    this.teams$.subscribe((res) => {
-      table = res;
-      this.store.dispatch(addTable({ table }));
-    });
+    this.store.dispatch(addTableSuccess({ table: this.teams }));
   }
 }

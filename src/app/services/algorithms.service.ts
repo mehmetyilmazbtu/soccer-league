@@ -20,24 +20,28 @@ export class AlgorithmsService {
       shiftArray.push(i);
     }
 
-    for (let i = 0; i < 2; i++) {
+    for (let j = 0; j < 2; j++) {
       for (let i = 0; i < teamArray.length; i++) {
-        matchesOfWeek.push(constTeam + ' - ' + teamArray[shiftArray[0]]);
-        matchesOfWeek.push(
-          teamArray[shiftArray[1]] + ' - ' + teamArray[shiftArray[2]]
-        );
-
+        let firstMatch=[]
+        let secMatch=[]
+        let arr = [];
+        firstMatch.push(constTeam);
+        firstMatch.push(teamArray[shiftArray[0]]);
+        secMatch.push(teamArray[shiftArray[1]]);
+        secMatch.push(teamArray[shiftArray[2]]);
+        arr.push(firstMatch)
+        arr.push(secMatch)
+        matchesOfWeek.push(arr);
         let firstElement = shiftArray.shift();
         shiftArray.push(firstElement);
       }
     }
     return matchesOfWeek;
   }
-  playMatches(week,teams,matchesOfWeek) {
+  playMatches(week, teams, matchesOfWeek) {
     for (let i = 0; i < 2; i++) {
-      const res = matchesOfWeek[week+i].split(' - ');
-      let homeTeam = teams.find((element) => element.takim === res[0]);
-      let awayTeam = teams.find((element) => element.takim === res[1]);
+      let homeTeam = teams.find((element) => element.takim === matchesOfWeek[week][i][0]);
+      let awayTeam = teams.find((element) => element.takim === matchesOfWeek[week][i][1]);
       const goalHome = Math.floor(Math.random() * (4 - 0 + 1) + 0);
       const goalAway = Math.floor(Math.random() * (4 - 0 + 1) + 0);
 
@@ -64,7 +68,7 @@ export class AlgorithmsService {
         homeTeam.maglubiyet += 1;
       }
     }
-    teams=[...teams]
-    return teams
+    teams = [...teams];
+    return teams;
   }
 }
